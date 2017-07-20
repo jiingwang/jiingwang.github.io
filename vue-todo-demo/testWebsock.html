@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>test vue</title>
+	<style type="text/css">
+		#app {
+			width: 700px;
+			margin:  100px auto;
+		}
+
+		#app .title {
+			text-align: center;
+			margin-bottom: 100px;
+		}
+
+		#app .input-form {
+			text-align: center;
+		}
+
+		.input-form input {
+			display: inline-block;
+			width: 250px;
+			height: 15px;
+			border: 1px solid #666;
+			border-radius: 5px;
+			padding: 5px;
+		}
+
+		.input-form button {
+			display: inline-block;
+			width: 80px;
+			height: 30px;
+			background-color: #fff;
+			border: 1px solid #666;
+			border-radius: 5px;
+		}
+
+		.input-form button:hover {
+			cursor: pointer;
+		}
+
+		#app .todo-list {
+			margin-top: 60px;
+		}
+
+		#app .todo-list .delete-btn {
+			margin-left: 80px;
+		}
+		.todo-list, .done-list, .deleted-list {
+			margin-top: 50px;
+			padding: 20px 40px;
+			border: 1px solid #999;
+			border-radius: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<h2 class="title">标题：{{ msg }}</h2>
+		<div class="input-form">
+			<input v-model="todoValue">
+			<button v-on:click="addTodo">增加</button>
+		</div>
+		<ul class="todo-list">
+			<span>未完成任务</span>
+			<li 
+				v-for="todo in todoList" 
+				v-bind:id="'todo' + todo.id"
+				v-if="!(todo.checked || todo.deleted)"
+			>
+				<input type="checkbox" v-model="todo.checked">
+				{{ todo.text }}
+				<span class="time" >
+					{{ todo.time }}
+				</span>
+				<span class="delete-btn" v-on:click="deleteTodo">
+					<a href="#" v-bind:id="todo.id">删除</a>
+				</span>
+			</li>
+		</ul>
+		<ul class="done-list" >
+			<span>已完成任务</span>
+			<li 
+				v-for="todo in todoList" 
+				v-bind:id="'todo' + todo.id"
+				v-if="todo.checked"
+			>
+				{{ todo.text }}
+				<span class="time" >
+					{{ todo.time }}
+				</span>
+			</li>
+		</ul>
+		<ul class="deleted-list" >
+			<span>已删除任务</span>
+			<li 
+				v-for="todo in todoList" 
+				v-bind:id="'todo' + todo.id"
+				v-if="todo.deleted"
+			>
+				{{ todo.text }}
+				<span class="time" >
+					{{ todo.time }}
+				</span>
+			</li>
+		</ul>
+	</div>
+	<script type="text/javascript" src="./vue.js"></script>
+	<script type="text/javascript">
+		var app = new Vue({
+			el: '#app',
+			data: {
+				msg: '欢迎使用WangList',
+				todoList: [{
+					id: 1,
+					text: 'example：早上做好财务报表',
+					time: '2017-7-20 16:03:45',
+					deleted: false,
+					checked: false
+				}],
+				todoValue: ''
+			},
+			methods: {
+				deleteTodo(e){
+					var id = e.target.id;
+					this.todoList.forEach((todo) => {
+						if (todo.id == id) {
+							todo.deleted = true;
+						}
+					});
+				},
+				addTodo(e){
+					if (!this.todoValue) {alert("请输入"); return;}
+					const date = new Date();
+					const time = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+					this.todoList.push({
+						id: this.todoList.length+1,
+						text: this.todoValue,
+						time: time,
+						deleted: false,
+						checked: false
+					});
+					this.todoValue = "";
+				} 
+			},
+			computed: {
+
+			}
+		})
+	</script>
+</body>
+</html>
