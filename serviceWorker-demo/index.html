@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html manifest="example.appcache">
+<head>
+	<title>test cache</title>
+	<script type="text/javascript" src="index.js"></script>
+	<script type="text/javascript" src="network.js"></script>
+	<style type="text/css" rel="stylesheet">
+		.container {
+			width:  300px;
+			margin: 50px auto;
+		}
+		.container h1 {
+			text-align: center;
+		}
+		.container p {
+			font-size: 24px;
+			color: yellow;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>test appcache</h1>
+		<p>
+			hello world
+		</p>
+		<p>
+			<span>result： </span>
+			<span id="result">
+				
+			</span>
+		</p>
+	</div>
+	<script>
+		if ('serviceWorker' in navigator) {
+			window.addEvnetListener('load', function () {
+				navigator.serviceWorker.register('/sw.js').then(function(registration) {
+					console.log('serviceWorker registrtion success');
+				}).catch(function (err) {
+					console.log('serviceWorker registrtion failed');
+				});
+			})
+		}
+	</script>
+</body>
+</html>
