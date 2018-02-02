@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>点灯Demo</title>
+	<style type="text/css">
+		html, body {
+			padding: 0;
+			margin: 0;
+			width: 100%;
+			height: 100%;
+			background-color: #2f323c;
+		}
+
+		.lamp {
+			width: 100%;
+			height: 100%;
+		}
+
+		.lamp .line {
+			width: 2px;
+			height: 200px;
+			margin: 0 auto;
+			background-color: black;
+		}
+		.lamp .connect {
+			width: 6px;
+			height: 12px;
+			margin: 0 auto;
+			background-color: black;
+		}
+
+		.lamp .lamp-part {
+			width: 64px;
+			margin: 1px auto;
+		}
+		.lamp-part .lamp-head {
+			width: 10px;
+			height: 16px;
+			margin: 0 auto;
+			background-color: black;
+		}
+
+		.lamp-part .lamp-circle {
+			width: 64px;
+			height: 64px;
+			border-radius: 50%;
+			background-color: #ffffff08;
+			box-shadow: inset 2px -2px 10px rgba(255,255,255,0.07);
+		}
+		.lamp-part .lamp-circle.light {
+			background-color: #fff;
+			box-shadow: 0px 2px 10px rgba(255,255,255,0.6),
+						0px 5px 50px rgba(255,255,255,0.6),
+						0px 8px 80px rgba(255,255,255,0.8),
+						0px 8px 120px rgba(255,255,255,0.8);
+		}
+		.lamp-circle .inner-core-line {
+			width: 3px;
+			height: 24px;
+			margin: 0 auto;
+			background-color: #ffffff08;
+		}
+
+		.lamp-circle .inner-core-cirle {
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			margin: 0 auto;
+			border: 3px solid #ffffff08;
+		}
+
+		.switch {
+			width: 100%;
+			box-sizing: border-box;
+			text-align: right;
+			padding-right: 150px;
+			color: #fff;
+			margin: 300px auto;
+			cursor: pointer;
+		}
+	</style>
+
+</head>
+<body>
+	<div class="lamp">
+		<div class="line"></div>
+		<div class="connect"></div>
+		<div class="lamp-part">
+			<div class="lamp-head"></div>
+			<div class="lamp-circle" id="lamp">
+				<div class="inner-core-line"></div>
+				<div class="inner-core-cirle"></div>
+			</div>
+		</div>
+
+		<div class="switch" id="switchbtn">off</div>
+	</div>
+	<script type="text/javascript">
+		var switchbtn = document.getElementById("switchbtn");
+		var lamp = document.getElementById('lamp');
+		switchbtn.addEventListener('click', function () {
+			var classes = Array.prototype.slice.apply(lamp.classList);
+			if (classes.indexOf('light') >= 0) {
+				lamp.className = 'lamp-circle';
+				switchbtn.innerText = 'on';
+			} else {
+				lamp.className += ' light';
+				switchbtn.innerText = 'off';
+			}
+		});
+	</script>
+</body>
+</html>

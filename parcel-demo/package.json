@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "babel-preset-env": "^1.6.1"
+  },
+  "name": "parcel-demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT"
+}
